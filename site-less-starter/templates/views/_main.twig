@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+	<head>
+		{% block head %}
+			<meta charset="UTF-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>
+				{% block title %}
+					{{ title }}
+				{% endblock %}
+			</title>
+			<meta name="description" content="{{ meta_description }}">
+			<link href="{{ page.httpUrl }}" rel="canonical"/>
+			<meta name="author" content="Pavel Tajduš">
+			<link rel="stylesheet" href="{{ css }}">
+			<script src="{{ js }}"></script>
+			<!-- Twitter Open Graph -->
+			<meta name="twitter:card" content="summary">
+			<meta name="twitter:description" content="{{ meta_description }}">
+			<meta
+			name='twitter:image:src' content='{{ page_image }}'>
+
+			<!-- Facebook Open Graph -->
+			<meta property="og:type" content="website"/>
+			<meta property="og:title" content="{{ title }}">
+			<meta property="og:site_name" content="{{ homepage.site_name }}">
+			<meta property="og:url" content="{{ page.httpUrl }}">
+			<meta property="og:description" content="{{ meta_description }}">
+			<meta property='og:image' content='{{ page_image }}'/>
+			<meta property='og:image:width' content='400'/>
+			<meta property='og:image:height' content='400'/>
+		{% endblock %}
+	</head>
+
+	<body>
+		<div class="uk-section uk-section-small">
+			<div class="uk-container">
+				<div class="uk-width-1-2@s uk-width-2-5@m">
+					<ul class="uk-nav uk-nav-default">
+						{% for p in nav_items %}
+							{% if p.children.count and p.id != 1 %}
+								<li class="uk-parent">
+									<a href="{{ p.url }}">{{ p.title }}</a>
+									<ul class="uk-nav-sub">
+										{% for c in p.children %}
+											{% if c.id == page.id %}
+												<li class="uk-active">
+													<a href="{{ c.url }}">{{ c.title }}</a>
+												</li>
+											{% else %}
+												<li>
+													<a href="{{ c.url }}">{{ c.title }}</a>
+												</li>
+											{% endif %}
+										{% endfor %}
+									</ul>
+								</li>
+							{% else %}
+								{% if p.id == page.id %}
+									<li class="uk-active">
+										<a href="{{ p.url }}">{{ p.title }}</a>
+									</li>
+								{% else %}
+									<li>
+										<a href="{{ p.url }}">{{ p.title }}</a>
+									</li>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="uk-section uk-section-small">
+			<div id="content" class="uk-container">
+				{% block content %}
+					<h1>{{ page.title }}</h1>
+					{% if page.body %}
+						<p>{{ page.body }}</p>
+					{% endif %}
+				{% endblock %}
+			</div>
+		</div>
+		<div id="footer" class="uk-section uk-section-small">
+			<div class="uk-container">
+				{% block footer %}
+					<strong>{{homepage.site_name}}</strong>
+					&copy;
+					{{ "now"|date("Y") }}, made with Processwire by
+					<a href="https://tajdus.cz/">Pavel Tajduš</a>.
+				{% endblock %}
+			</div>
+		</div>
+
+	</body>
+
+</html></body></html></body></html>
