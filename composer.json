@@ -1,0 +1,8 @@
+{
+    "require": {
+        "wanze/template-engine-factory": "2.0",
+        "wanze/template-engine-twig": "2.0",
+        "tedivm/jshrink": "^1.4",
+        "matthiasmullie/minify": "^1.3"
+    }
+}
